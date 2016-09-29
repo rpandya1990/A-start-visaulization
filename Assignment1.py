@@ -1,3 +1,5 @@
+import pygame, sys
+from pygame.locals import *
 import numpy as np
 import random
 
@@ -99,7 +101,7 @@ def create_map(row, col, region_length):
 
 	x = river_row
 	y = river_col
-	while entire_river<100:
+	while entire_river<20:
 		if (random.uniform(0.0,1.0)<=0.25 and river_flag !=3):
 			river_flag = 1;
 			river_row = 0;
@@ -146,6 +148,31 @@ def mapToFile(map,name):
 		fo.write(string + "\n")
 	fo.close()
 	
+def map_visualize(map):
+	BLUE = (0,0,255)
+	BLACK = (0,0,2)
+	GREEN = (0,255,0)
+	WHITE = (255,255,255)
+	TILESIZE = 40
+	MAPWIDTH = len(map[0])
+	MAPHEIGHT = len(map)
 
-map = create_map(80,80,10)
+	colors = {1:GREEN, 3:BLUE, 2:BLACK}
+	pygame.init()
+	DISPLAYSURF = pygame.display.set_mode((MAPWIDTH*TILESIZE,MAPHEIGHT*TILESIZE))
+	DISPLAYSURF.fill(WHITE)
+
+	for row in xrange(MAPHEIGHT):
+		for col in xrange(MAPWIDTH):
+			pygame.draw.rect(DISPLAYSURF, colors[map[row][col]], (col*TILESIZE,row*TILESIZE, TILESIZE,TILESIZE))
+			pygame.display.update()
+	while True:
+		for event in pygame.event.get():
+			if event.type==QUIT:
+				pygame.quit()
+				sys.exit()
+ 
+
+map = create_map(20,20,5)
 mapToFile(map,"map.txt")
+map_visualize(map)
