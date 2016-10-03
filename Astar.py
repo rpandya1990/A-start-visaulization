@@ -3,7 +3,7 @@
 # Please give credit if used
 
 import numpy
-import math
+from math import *
 from heapq import *
 
 
@@ -28,23 +28,23 @@ def movement(array,a, b):
     #cost from unblocked to unblocked
     if array[a[0]][a[1]]==1 and array[b[0]][b[1]]==1:
         if direction==1:
-            #cost = unblocked to unblocked - diagonal
+            cost = sqrt(2)
         else:
-            cost =
+            cost = 1
 
     #cost from hard to unblocked or vice versa
     if (array[a[0]][a[1]]==1 and array[b[0]][b[1]]==2) or (array[a[0]][a[1]]==2 and array[b[0]][b[1]]==1):
         if direction==1:
-            #cost = 
+            cost = 1.5*sqrt(2)
         else:
-            cost = 
+            cost = 1.5
 
     #cost from hard to hard
     if (array[a[0]][a[1]]==2 and array[b[0]][b[1]]==2):
         if direction==1:
-            cost = 
+            cost = 2*sqrt(2)
         else:
-            cost =
+            cost = 2
 
     #cost from hard to river or vice versa
     if ((array[a[0]][a[1]] in river) and array[b[0]][b[1]]==2) or ((array[b[0]][b[1]] in river) and array[a[0]][a[1]]==2):
@@ -55,6 +55,13 @@ def movement(array,a, b):
 
     #cost from unblocked to river or vice versa
     if ((array[a[0]][a[1]] in river) and array[b[0]][b[1]]==1) or ((array[b[0]][b[1]] in river) and array[a[0]][a[1]]==1):
+        if direction==1:
+            cost = 
+        else:
+            cost =
+
+    #cost from river to river
+    if ((array[a[0]][a[1]] in river) and array[b[0]][b[1]] in river)
         if direction==1:
             cost = 
         else:
