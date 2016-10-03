@@ -18,7 +18,6 @@ def heuristic(a, b):
 
 def movement(array,a, b):
 
-    river = [3,5,7,9]
     #Determining direction, 1 for diagonal, 0 for horizontal-vertical
     if(abs(b[1]-a[1]) + abs(b[0]-a[1]))==2:
         direction = 1
@@ -46,26 +45,57 @@ def movement(array,a, b):
         else:
             cost = 2
 
-    #cost from hard to river or vice versa
-    if ((array[a[0]][a[1]] in river) and array[b[0]][b[1]]==2) or ((array[b[0]][b[1]] in river) and array[a[0]][a[1]]==2):
-        if direction==1:
-            cost = 
-        else:
-            cost =
+    river_regular = [3,5,7,9]
+    river_hard = [4,6,8,10]
 
-    #cost from unblocked to river or vice versa
-    if ((array[a[0]][a[1]] in river) and array[b[0]][b[1]]==1) or ((array[b[0]][b[1]] in river) and array[a[0]][a[1]]==1):
+    #cost from hard to river_regular or vice versa
+    if ((array[a[0]][a[1]] in river_regular) and array[b[0]][b[1]]==2) or ((array[b[0]][b[1]] in river_regular) and array[a[0]][a[1]]==2):
         if direction==1:
-            cost = 
+            cost = 1.5*sqrt(2)
         else:
-            cost =
+            cost = 1.5
 
-    #cost from river to river
+    #cost from unblocked to river_regular or vice versa
+    if ((array[a[0]][a[1]] in river_regular) and array[b[0]][b[1]]==1) or ((array[b[0]][b[1]] in river_regular) and array[a[0]][a[1]]==1):
+        if direction==1:
+            cost = sqrt(2)
+        else:
+            cost = 1
+
+    #cost from hard to river_hard or vice versa
+    if ((array[a[0]][a[1]] in river_hard) and array[b[0]][b[1]]==2) or ((array[b[0]][b[1]] in river_hard) and array[a[0]][a[1]]==2):
+        if direction==1:
+            cost = 2*sqrt(2)
+        else:
+            cost = 2
+
+    #cost from unblocked to river_hard or vice versa
+    if ((array[a[0]][a[1]] in river_hard) and array[b[0]][b[1]]==1) or ((array[b[0]][b[1]] in river_hard) and array[a[0]][a[1]]==1):
+        if direction==1:
+            cost = 1.5*sqrt(2)
+        else:
+            cost = 1.5
+
+    #cost from river_regular to river_regular
     if ((array[a[0]][a[1]] in river) and array[b[0]][b[1]] in river)
         if direction==1:
-            cost = 
+            cost = 0.25*sqrt(2)
         else:
-            cost =
+            cost = 0.25
+
+    #cost from river_hard to river_hard
+    if ((array[a[0]][a[1]] in river_hard) and array[b[0]][b[1]] in river_hard)
+        if direction==1:
+            cost = 0.5*sqrt(2)
+        else:
+            cost = 0.5
+
+    #cost from river_hard to river_regular and vice versa
+    if ((array[a[0]][a[1]] in river_hard) and array[b[0]][b[1]] in river_regular) or ((array[a[0]][a[1]] in river_regular) and array[b[0]][b[1]] in river_hard)
+        if direction==1:
+            cost = 0.375*sqrt(2)
+        else:
+            cost = 0.375
 
 def astar(array, start, goal):
 
